@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Posts</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="css/font-awesome.min.css" rel="stylesheet"></link>
+<link href="css/prettyPhoto.css" rel="stylesheet"></link>
+<link href="css/price-range.css" rel="stylesheet"></link>
+<link href="css/animate.css" rel="stylesheet"></link>
+<link href="css/main.css" rel="stylesheet"></link>
+<link href="css/responsive.css" rel="stylesheet"></link>
+
+<title>Exemplo Echo WebSocket</title>
+
+<script type="text/javascript">
+	var ws = new WebSocket("wss://mychatv1.herokuapp.com/chat");
+	
+	ws.onopen = function() {
+		console.log('Info: WebSocket conectado.');
+	};
+	
+	function echo(message) {
+		
+		var usuario = document.getElementById("usuarios").value;
+		
+		message = '{"destino":"'+usuario+'","texto":"'+message+'"}';
+		
+		if (ws != null) {
+
+			ws.send(message);
+
+		} else {
+			alert('WebSocket não conectado');
+		}
+	}
+	
+	ws.onmessage = function(event) {
+		//console.log('Mensagem recebida: ' + event.data);
+		//document.getElementById('conteudo').innerHtml
+		addTexto(event.data);
+	};
+
+	function addTexto(texto) {
+		var br = document.createElement("br");
+		var conteudo = document.getElementById("conteudo");
+
+		var t = document.createTextNode(texto);
+
+		conteudo.appendChild(t);
+
+		conteudo.appendChild(br);
+	}
+	
+	ws.onclose = function() {
+		console.log('Info: WebSocket desconectado.');
+	};
+</script>
+
+</head>
+
+<body>
+
+	<div class="form-group blu-margin">
+		<select id="usuarios" class="form-control" th:field="${usuarios}">
+			<option th:each="u:${usuarios}" th:value="${u}" th:text="${u}"></option>
+		</select>
+	</div>
+
+	<span id="conteudo"></span>
+
+	<p>
+		<textarea id="message" rows="4" cols="150"></textarea>
+
+		<button id="echo"
+			onclick="echo(document.getElementById('message').value);">Enviar mensagem...</button>
+	</p>
+	
+	
+	
+	
+	<div class="panel panel-default">
+        <div class="panel-heading">
+            <strong>Posts</strong>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-sm table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Usuários</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="i : ${usuarios}">
+                            <td th:text="${i}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+	
+	
+	
+
+</body>
+
+</html>
