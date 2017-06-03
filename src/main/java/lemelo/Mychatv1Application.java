@@ -3,13 +3,14 @@ package lemelo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 import lemelo.handler.WebsocketHandler;
 
 @EnableWebSocket
 @SpringBootApplication
-public class Mychatv1Application {
+public class Mychatv1Application implements WebSocketConfigurer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Mychatv1Application.class, args);
