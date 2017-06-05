@@ -13,18 +13,33 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class IndexController {
-	private List<String> usuarios = new ArrayList<>();;
+	private List<String> usuarios = new ArrayList<>();
+	private int cont = 0;
 
 	@RequestMapping("/index")
 	public ModelAndView getIndex(HttpServletRequest request, HttpServletResponse response) {
 
 		String usuario = SecurityContextHolder.getContext().getAuthentication().getName();
 		
-		usuarios.add(usuario);
 		
 		ModelAndView modelView = new ModelAndView("index");
-
-			modelView.addObject("usuarios", usuarios);
+		
+		for(int i=0; i<usuarios.size(); i++){
+			if(usuarios.get(i).equals(usuario))
+			{
+				cont++;
+			}
+			System.out.println("usuario[" + i + "] : " + usuarios.get(i));
+		}
+		System.out.println("--------------------");
+		if(cont == 0){
+			usuarios.add(usuario);
+		} else {
+			cont = 0;
+		}
+		
+		modelView.addObject("usuarioLogado", usuario);
+		modelView.addObject("usuarios", usuarios);
 		
 		return modelView;
 	}
