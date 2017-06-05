@@ -48,15 +48,14 @@
 			alert('Escolha um destinatário!');
 		} else {
 			message = '{"destino":"'+usuario+'","texto":"'+message+'"}';
-		}
-		
-		
-		if (ws != null) {
+			
+			if (ws != null) {
 
-			ws.send(message);
+				ws.send(message);
 
-		} else {
-			alert('WebSocket não conectado');
+			} else {
+				alert('WebSocket não conectado');
+			}
 		}
 	}
 	
