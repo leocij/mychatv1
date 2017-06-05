@@ -44,8 +44,12 @@
 		//message = "" + usuarioLogado + " escreveu: " + message;
 		
 		//alert("Passei aqui: " + message);
+		if(destino === null){
+			alert('Escolha um destinatário!');
+		} else {
+			message = '{"destino":"'+usuario+'","texto":"'+message+'"}';
+		}
 		
-		message = '{"destino":"'+usuario+'","texto":"'+message+'"}';
 		
 		if (ws != null) {
 
