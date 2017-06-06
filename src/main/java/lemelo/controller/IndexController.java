@@ -29,9 +29,9 @@ public class IndexController {
 			{
 				cont++;
 			}
-			System.out.println("usuario[" + i + "] : " + usuarios.get(i));
+			//System.out.println("usuario[" + i + "] : " + usuarios.get(i));
 		}
-		System.out.println("--------------------");
+		//System.out.println("--------------------");
 		if(cont == 0){
 			usuarios.add(usuario);
 		} else {
